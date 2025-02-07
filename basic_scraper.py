@@ -21,26 +21,20 @@ class EventScraper:
         except requests.RequestException as e:
                 print(f"Error fetching page: {e}")
                 return None
-        print(f"response: {response}")
+        print(f"response status: {response}")
+
+
         self.post_processor(response.text)
-
-
-        
-        with open(f'past_html.json') as f:
-            html = json.load(f)["Row"]
-
-        self.post_processor(html)
 
 
     def post_processor(self,html):
         if not html:
             return None
         
-        soup = BeautifulSoup(f"{html}", 'html.parser')
-        events = []
-
-
+        soup = BeautifulSoup(f"{html}", 'html.parser') 
         event_elements = soup.find_all('div', 'rounded-md')
+
+        events = []
     
        
             
